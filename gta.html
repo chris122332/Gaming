@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Denuvo Bypass Ultra - Gaming BR</title>
+    <!-- Fontes Premium -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff3e3e;
+            --primary-glow: rgba(255, 62, 62, 0.5);
+            --bg: #030303;
+            --card-bg: rgba(15, 15, 20, 0.9);
+            --border: rgba(255, 255, 255, 0.08);
+            --text-main: #f0f0f0;
+            --text-dim: #888;
+            --accent-blue: #00d2ff;
+            --success: #00ff88;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) var(--bg);
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(circle at 10% 10%, rgba(255, 62, 62, 0.08) 0%, transparent 35%),
+                radial-gradient(circle at 90% 90%, rgba(0, 210, 255, 0.08) 0%, transparent 35%);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Scanline effect */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            z-index: 9999;
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 25px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .main-title {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -3px;
+            background: linear-gradient(180deg, #fff 0%, #444 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 15px rgba(255,255,255,0.1));
+        }
+
+        .badge-system {
+            background: var(--primary);
+            color: white;
+            padding: 6px 20px;
+            font-size: 0.75rem;
+            font-weight: 900;
+            border-radius: 4px;
+            letter-spacing: 3px;
+            box-shadow: 0 0 25px var(--primary-glow);
+            text-transform: uppercase;
+        }
+
+        /* Intro Box */
+        .intro-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 35px;
+            border-radius: 20px;
+            margin-bottom: 60px;
+            font-size: 1.25rem;
+            font-weight: 300;
+            border-left: 6px solid var(--primary);
+            box-shadow: 20px 20px 60px rgba(0,0,0,0.5);
+        }
+
+        /* Seção Label */
+        .section-label {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--primary);
+        }
+
+        .section-label::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+        }
+
+        /* Grid de Regras */
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin-bottom: 80px;
+        }
+
+        .rule-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            padding: 25px;
+            border-radius: 12px;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .rule-card:hover {
+            background: rgba(255, 62, 62, 0.03);
+            border-color: var(--primary);
+            transform: scale(1.02);
+        }
+
+        .rule-card strong {
+            display: block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        /* Tutorial steps */
+        .step-container {
+            display: grid;
+            gap: 40px;
+            margin-bottom: 100px;
+        }
+
+        .step-block {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 20px;
+        }
+
+        .step-side {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .step-circle {
+            width: 50px;
+            height: 50px;
+            background: #111;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: var(--primary);
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        .step-line {
+            flex: 1;
+            width: 2px;
+            background: linear-gradient(var(--primary), transparent);
+            margin: 10px 0;
+        }
+
+        .step-main {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 35px;
+            position: relative;
+        }
+
+        .step-main h4 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        /* Observações e Alertas */
+        .observation {
+            background: rgba(0, 210, 255, 0.05);
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 0.95rem;
+            color: var(--accent-blue);
+            display: flex;
+            gap: 10px;
+        }
+
+        .observation::before { content: "ℹ️"; }
+
+        .critical-alert {
+            background: rgba(255, 62, 62, 0.1);
+            border: 1px solid var(--primary);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            color: #ff9b9b;
+        }
+
+        /* Imagens Expandíveis */
+        .img-wrapper {
+            margin-top: 25px;
+            cursor: zoom-in;
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #333;
+            transition: 0.3s;
+        }
+
+        .img-wrapper:hover { border-color: var(--primary); }
+
+        .img-wrapper img {
+            width: 100%;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        /* Lightbox logic */
+        .lightbox {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            cursor: zoom-out;
+        }
+
+        .lightbox.active { display: flex; }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 50px rgba(0,0,0,1);
+        }
+
+        /* Botões */
+        .btn-action {
+            display: inline-flex;
+            align-items: center;
+            padding: 15px 30px;
+            background: #fff;
+            color: #000;
+            text-decoration: none;
+            font-weight: 800;
+            border-radius: 8px;
+            text-transform: uppercase;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-action:hover {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 5px 20px var(--primary-glow);
+        }
+
+        footer {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(transparent, #0a0a0c);
+            border-top: 1px solid var(--border);
+        }
+
+        .support-card {
+            max-width: 650px;
+            margin: auto;
+            background: #111;
+            padding: 35px;
+            border-radius: 24px;
+            border: 1px solid var(--primary);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: #222; border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+        @media (max-width: 768px) {
+            .step-block { grid-template-columns: 1fr; }
+            .step-side { display: none; }
+            .main-title { font-size: 2.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <span class="badge-system">Gaming BR Official Resource</span>
+        <h1 class="main-title">Denuvo Bypass</h1>
+        <p style="color: var(--text-dim); font-weight: 600;">O Guia Definitivo para Ativação Offline</p>
+    </header>
+
+    <!-- Intro Original -->
+    <div class="intro-box">
+        ola, se voce esta vendo isso provavelmente quer burlar o denuvo... isso é tao simples quanto parece, mas muitos desistem ou acham difícil, mas calma, eu te ensino, pode ser longo mas a recompensa de jogar seu tao sonhado jogo vai valer a pena;
+    </div>
+
+    <!-- Regras Originais -->
+    <div class="section-label">Regrinhas Obrigatórias</div>
+    <p style="color: var(--text-dim); margin-bottom: 25px;">primeiramente preste atençao nisso, pode parecer obvio, porem muitos (assim como eu) acabam fazendo besteira por nao obedecer estas regrinhas</p>
+    
+    <div class="rules-grid">
+        <div class="rule-card">
+            <strong>01</strong>
+            verifque se o jogo roda, use chatgpt, gemini, google, olha na steam pra ter certeza q o jogo vai rodar dboa.
+        </div>
+        <div class="rule-card">
+            <strong>02</strong>
+            o token (arquivo q voce tera mais pra frente) É SEU, ou seja, nao compartilhe pra seu amigo pra ajudar ele, pq caso faça isso, seu amigo pd ter o jogo, ja voce nao, ou ambos ficam sem.
+        </div>
+        <div class="rule-card">
+            <strong>03</strong>
+            nao mude as config do seu pc, nao formate (meio obvio) nao atualize o pc por nada, entao quer fazer alguma coisa? faça antes de ativar seu jogo;
+        </div>
+        <div class="rule-card">
+            <strong>04</strong>
+            nao incie seu jogo pelo launcher do desenvolveder dele, em outras palavras, se o jogo que vc baixou é da steam, nao abre ele pela steam, abre na pasta raiz, pelo .exe, o msm vale pra EA, rockstar e todos outros.
+        </div>
+        <div class="rule-card">
+            <strong>05</strong>
+            ultimo mas nao menos importante, os jogos devem ser do sigmaGUI, q vem no zip deste tutorial, voce pode tentar usar outros ou ate steam t ools, mas nao vai dar certo ou seja, perdeu tempo.
+        </div>
+        <div class="rule-card" style="border-color: var(--primary);">
+            <strong>06</strong>
+            download wub (vc ira usar mais tarde):<br>
+            <a href="https://www.sordum.org/files/downloads.php?st-windows-update-blocker" class="btn-action" target="_blank">Baixar WUB</a>
+        </div>
+    </div>
+
+    <!-- Tutorial Timeline -->
+    <div class="section-label">Tutorial Começa Aqui</div>
+    <p style="color: var(--text-dim); margin-bottom: 40px; font-style: italic;">
+        se vc nao reconhecer algum termo/palavra abaixo significa q voce é burro (brincandeira so significa q voce nao leu o tutorial mesmo)
+    </p>
+
+    <div class="step-container">
+        
+        <!-- Passos 1 e 2 -->
+        <div class="step-block">
+            <div class="step-side">
+                <div class="step-circle">01</div>
+                <div class="step-line"></div>
+            </div>
+            <div class="step-main">
+                <h4>Início do Processo</h4>
+                <div class="step-content">
+                    1- abre o sigma.exe e baixa seu jogo<br>
+                    2- nem perde tempo tentando abrir, vai dar erro de licença ou pedir um codigo de ativaçao, que voce nao tem.
+                </div>
+            </div>
+        </div>
+
+        <!-- Passo 3 -->
+        <div class="step-block">
+            <div class="step-side">
+                <div class="step-circle">02</div>
+                <div class="step-line"></div>
+            </div>
+            <div class="step-main">
+                <h4>Acesso aos Servidores</h4>
+                <div class="step-content">
+                    3-apos baixar entre no servidor Pubs Lounge <a href="https://discord.gg/pwhmQvSSCr" target="_blank">https://discord.gg/pwhmQvSSCr</a> e vá para o canal Pub wainting room <a href="https://discord.com/channels/1265271912037089312/1427142069264318504" target="_blank">Clique aqui</a> (se tiver sem acesso por esse link vai la no servidor e acha o canal sozinho)
+                </div>
+            </div>
+        </div>
+
+        <!-- Passo 4 -->
+        <div class="step-block">
+            <div class="step-side">
+                <div class="step-circle">03</div>
+                <div class="step-line"></div>
+            </div>
+            <div class="step-main">
+                <h4>Solicitação Free Pub</h4>
+                <div class="step-content">
+                    4-apos estar no canal ,clique em free pub (olhe a imagem se voce for um anima- digo, iniciante)
+                </div>
+                <div class="img-wrapper" onclick="openLightbox(this)">
+                    <img src="https://i.postimg.cc/Nj1xT6WW/Screenshot-1.png" alt="Free Pub Button">
+                </div>
+                <div class="observation">Clique para expandir o print.</div>
+            </div>
+        </div>
+
+        <!-- Passo 5 e 6 -->
+        <div class="step-block">
+            <div class="step-side">
+                <div class="step-circle">04</div>
+                <div class="step-line"></div>
+            </div>
+            <div class="step-main">
+                <h4>Categorias de Ativação</h4>
+                <div class="step-content">
+                    5-apos isto voce ira entrar em um novo servidor, tome cuidado pra nao ser banido la, se nao, todas suas esperaças de jogar acabou, va para a categoria self activation.<br><br>
+                    6- nesta categoria tera varias canais (varios nao ne, so 4) entre eles o canal :steam , ubisoft, EA, e um so pro fc26 (ignore ele)
+                </div>
+                <div class="img-wrapper" onclick="openLightbox(this)">
+                    <img src="https://i.postimg.cc/26BVNFR9/Screenshot-2.png" alt="Canais Discord">
+                </div>
+            </div>
+        </div>
+
+        <!-- Passo 7 -->
+        <div class="step-block">
+            <div class="step-side">
+                <div class="step-circle">05</div>
+                <div class="step-line"></div>
+            </div>
+            <div class="step-main">
+                <h4>Seleção da Plataforma</h4>
+                <div class="step-content">
+                    7. selecione o canal do seu jogo, tipo black wyth wukong é da steam, ent va para o canal steam e escolhe seu jogo. Após isso, o bot ira criar um ticket.
+                </div>
+                <div class="img-wrapper" onclick="openLightbox(this)">
+                    <img src="https://media.discordapp.net/attachments/1461491578119131268/1462942141020897341/image.png?ex=6970af4a&is=696f5dca&hm=27604c856784c019d0ace311870b82f46d468c228930ab6096457e420c99295f&=&format=webp&quality=lossless&width=901&height=563" alt="Bot Select Jogo">
+                </div>
+            </div>
+        </div>
+
+        <!-- Passo 8 -->
+        <div class="step-block">
+            <div class="step-side">
+                <div class="step-circle">06</div>
+                <div class="step-line"></div>
+            </div>
+            <div class="step-main" style="border-color: var(--primary);">
+                <h4>PASSO MAIS IMPORTANTE: O PRINT</h4>
+                <div class="step-content">
+                    8- (passo mais importante) nesse ticket tera um embed, e voce tera que clicar em <strong>new activation</strong>.
+                    <div class="img-wrapper" onclick="openLightbox(this)">
+                        <img src="https://i.postimg.cc/3wGTKLNk/Screenshot-3.png" alt="New Activation">
+                    </div>
+                    apos isso o bot ira mandar um novo embed e voce tera que mandar um print, e nao é qualquer print, <strong>PRESTE ATENÇAO:</strong>
+                    
+                    <div class="critical-alert">
+                        Va para a pasta do jogo que voce baixou pelo sigma, clica com botao direito e clica em propriedades, apos isso entre na pasta do jogo e de alt+tab pra janela de propriedades ficar la, apos isso abre o wub que voce baixou la encima e abra ele, e clica em "desativar atualizaçoes"  e clica em aplicar agora, o icone de escudo devera ficar vermelho, apos isso, pegue a janela e arrasta pra pasta do jogo.
+                    </div>
+                    
+                    o print tera q ficar tipo assim:
+                </div>
+                <div class="img-wrapper" onclick="openLightbox(this)">
+                    <img src="https://i.postimg.cc/5NPYvt3f/image.webp" alt="Print Exemplo">
+                </div>
+                <div class="observation">
+                    (nao tente pegar este print e usar no bot, se fizer isso o bot detcta e vc é banido do server) apos tirar o print envie para o bot.
+                </div>
+            </div>
+        </div>
+
+        <!-- Passo 9, 10 e 11 -->
+        <div class="step-block">
+            <div class="step-side">
+                <div class="step-circle">07</div>
+                <div class="step-line"></div>
+            </div>
+            <div class="step-main">
+                <h4>Finalização e Injeção</h4>
+                <div class="step-content">
+                    9- agora que voce enviou so clicar no botao verde e esperar ele analizar o print.<br><br>
+                    10- se tudo der certo, e voce nao for um completo imbeci- digo, se Deus quiser (reze pra q ele queira) o bot ira mandar um zip pra voce, voce devera baixar esse zip.<br><br>
+                    11- <strong>atençao</strong>, nao fecha o ticket ou clique no botao verde ainda, so quando conseguir jogar. apos isso extraia o zip, abre ele e copie todos arquivos, va para a pasta do jogo e cole la, e substitua oq for pedido. apos isso abra o jogo.
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="support-card">
+            <h3>Ficou Perdido?</h3>
+            <p style="color: #888; margin-bottom: 25px;">caso nao conseguiu, abre ticket na gaming que te auxilio.</p>
+            <span style="color: var(--primary); font-weight: 900; letter-spacing: 2px;">STAFF GAMING BR</span>
+        </div>
+    </footer>
+</div>
+
+<!-- Lightbox Modal -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <img id="lightbox-img" src="" alt="Zoomed Print">
+</div>
+
+<script>
+    function openLightbox(element) {
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const clickedImg = element.querySelector('img');
+        
+        lightboxImg.src = clickedImg.src;
+        lightbox.classList.add('active');
+    }
+
+    function closeLightbox() {
+        document.getElementById('lightbox').classList.remove('active');
+    }
+
+    // Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
